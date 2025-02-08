@@ -58,32 +58,33 @@ export class UsersService {
     }
   }
 
-  async signInUser(reqBody: SignInUserDto) {
+  async validateUser(reqBody: SignInUserDto) {
     const { email, password } = reqBody;
 
     if (!email || !password) {
       throw new BadRequestException('Missing Credentials');
     }
 
-    const isUserExist = await this.userModel.findOne({ email: email });
+    const user = await this.userModel.findOne({ email: email });
 
-    if (!isUserExist) {
+    if (!user) {
       throw new UnauthorizedException('Invalid Credential');
     }
 
-    const isPasswordMatch = await bcrypt.compare(
-      password,
-      isUserExist.password,
-    );
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
       throw new UnauthorizedException('Invalid Credential');
     }
 
-    //implement jwt flow and return jwt token with cookies
+    //and add more validatioj on fnam and lnam, password strong
 
+    return user;
+  }
+
+  async getUser() {
     return {
-      message: 'Login Succesfully',
+      message: 'Succesfully Auth',
     };
   }
 }

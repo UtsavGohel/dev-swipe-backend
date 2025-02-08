@@ -3,11 +3,16 @@ import { AppModule } from './app.module';
 
 import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
-
+import { JwtAuthGuard } from './modules/guards/auth.guard';
+import * as cookieParser from 'cookie-parser';
 dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalGuards(new JwtAuthGuard());
+
+  app.use(cookieParser()); // This allows cookies to be parsed
 
   // Enable global validation
   app.useGlobalPipes(
