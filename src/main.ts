@@ -10,7 +10,7 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalGuards(new JwtAuthGuard());
+  // app.useGlobalGuards(new JwtAuthGuard());
 
   app.use(cookieParser()); // This allows cookies to be parsed
 
