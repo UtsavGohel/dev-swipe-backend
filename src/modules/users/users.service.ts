@@ -28,7 +28,7 @@ export class UsersService {
       const isUserExist = await this.userModel.findOne({ email: email });
 
       if (isUserExist) {
-        throw new BadRequestException('Already Signed Up');
+        throw new BadRequestException('Email already exists');
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -52,6 +52,7 @@ export class UsersService {
 
       return {
         message: 'SignUp Succesfully',
+        success: true,
       };
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -80,11 +81,5 @@ export class UsersService {
     //and add more validatioj on fnam and lnam, password strong
 
     return user;
-  }
-
-  async getUser() {
-    return {
-      message: 'Succesfully Auth',
-    };
   }
 }

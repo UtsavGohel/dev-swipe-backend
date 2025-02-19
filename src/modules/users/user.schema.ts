@@ -6,7 +6,7 @@ export const UserSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: true, //unqiue will automatically create index on email field in DB
       validate: {
         validator: (email) => {
           return isaValidEmail(email);

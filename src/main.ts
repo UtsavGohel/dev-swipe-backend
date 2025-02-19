@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 
 import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
-import { JwtAuthGuard } from './modules/guards/auth.guard';
+
 import * as cookieParser from 'cookie-parser';
 dotenv.config();
 
@@ -11,6 +11,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // app.useGlobalGuards(new JwtAuthGuard());
+
+  // for development only
+  app.enableCors({ origin: ['http://localhost:5173'], credentials: true });
 
   app.use(cookieParser()); // This allows cookies to be parsed
 

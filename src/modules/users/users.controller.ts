@@ -8,6 +8,7 @@ import {
   Delete,
   Res,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -34,15 +35,26 @@ export class UsersController {
     return this.authService.signInUser(createUserDto, res);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/logout')
   async logout(@Res() res: Response) {
     res.clearCookie('jwt'); // Clear the JWT cookie
-    return res.send({ message: 'Logged out successfully' });
+    return res
+      .status(200)
+      .send({ success: true, message: 'Logged out successfully' });
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('/getUser')
-  async getUser() {
-    return this.usersService.getUser();
+  @Post('/edit-profile')
+  async editProfile(@Body() createUserDto: SignInUserDto) {
+    // return this.usersService.editProfile(createUserDto, res);
+    //edit just fname,lname,city,gender,age
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/change-password')
+  async changePassword(@Body() createUserDto: SignInUserDto) {
+    // return this.usersService.editProfile(createUserDto, res);
+    //take new pwd, new pwd strong and not equal to last, hash and update in DB
   }
 }
