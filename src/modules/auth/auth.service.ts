@@ -30,7 +30,7 @@ export class AuthService {
 
     // Return success message and token
     return res.status(200).json({
-      message: `Welcome back, ${user.firstName}! You have successfully logged in.`,
+      message: `Welcome back, ${user.firstName}! You've successfully logged in.`,
       token: token,
       data: user,
     });
