@@ -122,6 +122,7 @@ export class ConnectionRequestService {
 
     return {
       message: `Connection request is ${status}`,
+      success: true,
     };
   }
 
@@ -133,7 +134,7 @@ export class ConnectionRequestService {
         toUserId: loggedInuserId,
         status: 'interested',
       })
-      .populate('fromUserId', 'firstName lastName photoUrl');
+      .populate('fromUserId', 'firstName lastName userImage designation');
 
     if (!findRequests.length) {
       return {
@@ -165,8 +166,8 @@ export class ConnectionRequestService {
           },
         ],
       })
-      .populate('fromUserId', 'firstName lastName photoUrl')
-      .populate('toUserId', 'firstName lastName photoUrl');
+      .populate('fromUserId', 'firstName lastName userImage designation')
+      .populate('toUserId', 'firstName lastName userImage designation');
 
     if (!findConnection) {
       throw new BadRequestException('No connection found');
@@ -223,7 +224,7 @@ export class ConnectionRequestService {
           { _id: { $ne: loggedInuserId } },
         ],
       })
-      .select('firstName lastName')
+      .select('firstName lastName userImage designation bio skills')
       .skip(skip)
       .limit(limitValue);
 
