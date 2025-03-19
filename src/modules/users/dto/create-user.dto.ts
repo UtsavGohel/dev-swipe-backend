@@ -30,13 +30,45 @@ export class CreateUserDto {
   @MaxLength(30, { message: 'Last name must not exceed 30 characters' })
   lastName!: string;
 
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  gender?: number;
+  gender?: string;
 
   @IsString()
   @IsOptional()
   city?: string;
+
+  @IsString()
+  @IsOptional()
+  userImage?: string;
+
+  @IsString()
+  @IsOptional()
+  designation?: string;
+
+  @IsString()
+  @IsOptional()
+  experience?: string;
+
+  @IsString()
+  @IsOptional()
+  education?: string;
+
+  @IsString()
+  @IsOptional()
+  bio?: string;
+
+  @IsString()
+  @IsOptional()
+  website?: string;
+
+  @IsString()
+  @IsOptional()
+  github?: string;
+
+  @IsString()
+  @IsOptional()
+  skills?: string;
 
   @IsNumber()
   @IsOptional()
