@@ -13,7 +13,14 @@ async function bootstrap() {
   // app.useGlobalGuards(new JwtAuthGuard());
 
   // for development only
-  app.enableCors({ origin: ['http://localhost:5173'], credentials: true });
+  app.enableCors({
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:5175',
+    ],
+    credentials: true,
+  });
 
   app.use(cookieParser()); // This allows cookies to be parsed
 
