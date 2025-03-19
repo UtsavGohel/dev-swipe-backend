@@ -34,6 +34,30 @@ export const UserSchema = new Schema(
     age: {
       type: Number,
     },
+    userImage: {
+      type: String,
+    },
+    designation: {
+      type: String,
+    },
+    bio: {
+      type: String,
+    },
+    experience: {
+      type: String,
+    },
+    education: {
+      type: String,
+    },
+    github: {
+      type: String,
+    },
+    website: {
+      type: String,
+    },
+    skills: {
+      type: String,
+    },
   },
   {
     timestamps: true,

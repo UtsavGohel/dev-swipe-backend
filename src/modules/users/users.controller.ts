@@ -26,13 +26,13 @@ export class UsersController {
   ) {}
 
   @Post('/signup')
-  async create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.signUpUser(createUserDto);
+  async create(@Body() reqBody: CreateUserDto, @Res() res: Response) {
+    return this.usersService.signUpUser(reqBody, res);
   }
 
   @Post('/signin')
-  async login(@Body() createUserDto: SignInUserDto, @Res() res: Response) {
-    return this.authService.signInUser(createUserDto, res);
+  async login(@Body() reqBody: SignInUserDto, @Res() res: Response) {
+    return this.authService.signInUser(reqBody, res);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -46,15 +46,19 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Post('/edit-profile')
-  async editProfile(@Body() createUserDto: SignInUserDto) {
-    // return this.usersService.editProfile(createUserDto, res);
-    //edit just fname,lname,city,gender,age
+  async editProfile(@Req() req, @Body() reqBody: UpdateUserDto) {
+    return this.usersService.editProfile(req, reqBody);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('/change-password')
-  async changePassword(@Body() createUserDto: SignInUserDto) {
-    // return this.usersService.editProfile(createUserDto, res);
-    //take new pwd, new pwd strong and not equal to last, hash and update in DB
+  async changePassword(@Req() req, @Body() reqBody: UpdateUserDto) {
+    return this.usersService.changePassword(req, reqBody);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/get-profile')
+  async getUserProfile(@Req() req) {
+    return this.usersService.getUserProfile(req);
   }
 }
