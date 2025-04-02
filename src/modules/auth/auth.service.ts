@@ -21,11 +21,6 @@ export class AuthService {
 
   async validateUser(reqBody: SignInUserDto) {
     const { email, password } = reqBody;
-    console.log(
-      `🚀 ~ AuthService ~ validateUser ~ email, password:`,
-      email,
-      password,
-    );
 
     if (!email || !password) {
       throw new BadRequestException('Missing Credentials');
@@ -33,16 +28,11 @@ export class AuthService {
 
     const user = await this.userModel.findOne({ email: email });
 
-    console.log(`🚀 ~ AuthService ~ validateUser ~ user:`, user);
     if (!user) {
       throw new UnauthorizedException('Invalid Credential');
     }
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
-    console.log(
-      `🚀 ~ AuthService ~ validateUser ~ isPasswordMatch:`,
-      isPasswordMatch,
-    );
 
     if (!isPasswordMatch) {
       throw new UnauthorizedException('Invalid Credential');
@@ -59,7 +49,6 @@ export class AuthService {
       user: user.firstName,
       sub: user._id,
     };
-    console.log(`🚀 ~ AuthService ~ signInUser ~ payload:`, payload);
 
     const token = await this.jwtAuthService.createToken(payload);
 
