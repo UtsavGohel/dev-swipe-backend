@@ -64,8 +64,12 @@ export class AuthService {
     const token = await this.jwtAuthService.createToken(payload);
     console.log(`🚀 ~ AuthService ~ signInUser ~ token:`, token);
 
+    console.log(
+      `🚀 ~ AuthService ~ signInUser ~ ocess.env.NODE_ENV:`,
+      process.env.NODE_ENV,
+    );
     res.cookie('jwt', token, {
-      httpOnly: true, // Ensures the cookie can't be accessed by JavaScript
+      // httpOnly: true, // Ensures the cookie can't be accessed by JavaScript
       secure: process.env.NODE_ENV === 'production' ? true : false, // Use true in production for HTTPS
       maxAge: 3600000, // Set the token to expire in 1 hour
     });
