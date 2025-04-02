@@ -69,8 +69,9 @@ export class AuthService {
       process.env.NODE_ENV,
     );
     res.cookie('jwt', token, {
-      // httpOnly: true, // Ensures the cookie can't be accessed by JavaScript
-      secure: process.env.NODE_ENV === 'production' ? true : false, // Use true in production for HTTPS
+      httpOnly: true, // Ensures the cookie can't be accessed by JavaScript
+      secure: true, // Use true in production for HTTPS
+      sameSite: 'none',
       maxAge: 3600000, // Set the token to expire in 1 hour
     });
     console.log(`🚀 ~ AuthService ~ signInUser ~ token:`, token);
