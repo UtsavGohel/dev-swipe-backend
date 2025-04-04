@@ -19,7 +19,6 @@ async function bootstrap() {
       'http://localhost:5173',
       'http://localhost:5174',
       'http://localhost:5175',
-      '*',
     ],
     credentials: true,
   });
@@ -34,6 +33,11 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // Throws an error if non-whitelisted properties are found
     }),
   );
+
+  app.use((req, res, next) => {
+    console.log(`Incoming Request: ${req.method} ${req.url}`);
+    next();
+  });
 
   await app.listen(3000);
 }
