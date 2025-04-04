@@ -8,6 +8,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConnectionRequestModule } from './modules/connection-request/connection-request.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CorsInterceptor } from './interceptor/cors.interceptor';
 
 @Module({
   imports: [
@@ -18,6 +20,12 @@ import { ConnectionRequestModule } from './modules/connection-request/connection
     ConnectionRequestModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CorsInterceptor,
+    },
+  ],
 })
 export class AppModule {}
