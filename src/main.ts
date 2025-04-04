@@ -14,14 +14,14 @@ async function bootstrap() {
 
   // for development only
   app.enableCors({
-    origin: [
-      'https://dev-swipe.vercel.app/',
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'http://localhost:5175',
-    ],
+    origin: [process.env.ALLOWED_ORIGIN || 'https://dev-swipe.vercel.app'],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
+
+  // Use custom CORS middleware
+  // app.use(new CorsMiddleware().use);
 
   app.use(cookieParser()); // This allows cookies to be parsed
 
