@@ -15,6 +15,7 @@ async function bootstrap() {
   // for development only
   app.enableCors({
     origin: [
+      'https://dev-swipe.vercel.app/',
       'http://localhost:5173',
       'http://localhost:5174',
       'http://localhost:5175',
