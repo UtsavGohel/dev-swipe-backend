@@ -14,7 +14,11 @@ async function bootstrap() {
 
   // for development only
   app.enableCors({
-    origin: [process.env.ALLOWED_ORIGIN || 'https://dev-swipe.vercel.app'],
+    origin: [
+      process.env.ALLOWED_ORIGIN ||
+        'https://dev-swipe.vercel.app' ||
+        'https://devswipe.torktoo.com',
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
